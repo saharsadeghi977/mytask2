@@ -30,6 +30,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                      
                     @foreach ($posts as $post)
 
                         <tr style="padding-block: 10px;border-bottom: 1px solid rgb(196, 196, 196);">
@@ -43,15 +44,7 @@
                             </td>
                            
                             <td style="padding-block: 10px;text-align: center;">{{$post->description}}</td>
-                            <td style="padding-block: 10px;text-align: center;"><a
-                                        href="{{route('products.edit',$product->id)}}"
-                                        class="badge badge-success">ویرایش</a>
-                            <form action="{{route('posts.destroy',$post->id)}}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="badge badge-warning" onclick="return confirm('آیا ایتم مورد نظر حذف شود');">حذف</button>
-                            </form>
-                            </td>
+                           
                         </tr>
                     @endforeach
                 </tbody>

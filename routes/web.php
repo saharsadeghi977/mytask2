@@ -18,7 +18,7 @@ Route::post('/store',[PC::class,'store'])->name('post.store');
 });
 Route::middleware(['auth'])->group(function(){
  Route::get('/users',[UC::class,'index'])->name('index');
- Route::get('/users/{user}',[UC::class,'show'])->name('users.show');
+ Route::get('/users/{user}',[UC::class,'show'])->name('posts.index');
 });
 // Route::get('/index',[UC::class,'index'])->name('index')
 

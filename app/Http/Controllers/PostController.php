@@ -40,9 +40,6 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $file=(new FileRepository())->upload('image', ['public']);
-       
-        $request->merge(['user_id'=> auth()->user()->id]);
-        if($request->validated()){
             $post=Post::create([
                 'name'=> $request->input('name'),
                 'type' => $request->input('type'),
@@ -50,11 +47,11 @@ class PostController extends Controller
                 'description'=>$request->input('description'),
                 'image'=>$request->input('image'),
                  'publish_at'=>$request->input('publish_at'),
-                 'user_id'=>$request->input('user_id'),
+                 'user_id'=>Auth::user()->id,
             ]); 
-        }
         
-        return redirect(route('posts.index', compact('post')));
+        
+        return redirect()->back();
 
     }
 

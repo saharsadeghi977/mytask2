@@ -16,5 +16,8 @@ class Post extends Model
 
         return $this->belongsTo(User::class);
     }
+    public function files(){
+        return $this->morphToMany(File::class,'fileable');
+    }
      
 }

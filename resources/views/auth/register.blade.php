@@ -28,7 +28,8 @@
                 <form action="{{route('register')}}" method="POST">
                   
                    @csrf
-                <div class="form-group">
+               <div style="display: flex; align-items: center;">
+               <div class="form-group" style="flex: 0 0 50%">
                       <label for="exampleInputname">نام و نام خانوادگی</label>
                       <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputname"  placeholder="نام و نام خانوادگی  " value="{{old('name')}}">
                       @error('name')
@@ -37,7 +38,7 @@
                    @enderror
 
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="flex: 0 0 50%" >
                       <label for="exampleInputEmail1">ایمیل</label>
                       <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="ایمیل " value="{{old('email')}}">
                       @error('email')
@@ -46,6 +47,7 @@
                    @enderror
 
                     </div>
+               </div>
                     <div class="form-group">
                <label for="exampleInputpassword">رمز عبور را وارد کنید</label>
                 <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="exampleInputpassword" placeholder="رمز عبور">
