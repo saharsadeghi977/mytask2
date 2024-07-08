@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fileables', function (Blueprint $table){
+        Schema::create('dates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('file_id')->constrained()->cascadeOnDelete();
-            $table->unsignedinteger('fileable_id');
-            $table->string('fileable_type');
+            $table->string('description')->nullable();
+            $table->date('date')->unique();
             $table->timestamps();
-
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fileables');
+        Schema::dropIfExists('dates');
     }
 };

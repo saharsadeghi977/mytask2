@@ -11,27 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('qrcodes', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('type')->nullable();
-            $table->string('path')->unique();
-            $table->string('hash')->unique();
-            $table->json('storages');
-            $table->json('entry')->nullable();
+            $table->string('code',100);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->text('description')->nullable();
             $table->timestamps();
-
-
         });
     }
 
-
     /**
+     * 
      * Reverse the migrations.
+     *
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
-
+        Schema::dropIfExists('qr_codes');
     }
 };

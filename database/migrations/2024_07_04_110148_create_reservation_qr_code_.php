@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('reservation_qrcode', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->integer('publish_at')->nullable();
-            $table->string('type');
-            $table->string('slug');
-            $table->text('description');
+            $table->foreignId('qrcode_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('appointment_id')->constrained()->cascadeOnDelete();
+            $table->enum('status',['reserve','inactive','free','past'])->default('free');
             $table->timestamps();
-            
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('reservation_user');
     }
 };
