@@ -41,12 +41,13 @@ class AppointmentController extends Controller
         
     public function changestatus( Request $request, Qrcode $qrcode, $date, $appointment )
     {
+        $user=Auth::user();
+       $qrcode->user_id==1;
         //  $validated = $request->validated();
         $request->validate([
         'status'=>'required|string|in:free,inactive'
     ]);
-     $user=Auth::user();
-     $qrcode->user_id==$user->id;
+     
     $appointment=$qrcode->appointments()->where('date_id',$date)->where('appointment_id',$appointment)->first();
      $appointment->pivot->status=$request->input('status');
       $appointment->pivot->save();
