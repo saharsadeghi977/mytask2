@@ -1,37 +1,54 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\QRcode;
 use App\Models\Date;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Qrcode $qrcode , $date)
+    public function index( $qrcode , $date)
     {  
-        $appointments=$qrcode->appointments()->where('date_id',$date)->get();
-        $result=$appointments->map(function ($appointment){
-            return[
-                'appointment_id'=>$appointment->id,
-                'status'=>$appointment->pivot->status
-            ];
-        });
-        return response()->json($result);
-    }
+        $appointments=Appointment::query()->whereHas('qrcodes',function($query)use ($qrcode){
+            $query->where('qrcode_id',$qrcode);
+        })->where('date_id',$date)->get();
+        
+       $freeAppointments=$appointments->filter(function($appointment){
+        return $appointment->qrcodes->first()->pivot->status=='free';
+       })->pluck('time')->implode(',');
 
+       $busyAppointments=$appointments->filter(function($appointment){
+        $status=$appointment->qrcodes->first()->pivot->status;
+        return $status == 'reserved'||$status == 'inactive';
+       })->pluck('time')->implode(',');
+       
+          return response()->json([
+            'data'=>[
+                'free_appointments'=>$freeAppointments,
+                'busy_appointments'=>$busyAppointments
+            ]
+          ]);
+
+            }
+    
+        
     public function changestatus( Request $request, Qrcode $qrcode, $date, $appointment )
-    {  $request->validate([
+    { 
+         $request->validate([
         'status'=>'required|string|in:free,inactive'
     ]);
-
+     $user=Auth::user();
+     if($qrcode->user_id==$user->id){
     $appointment=$qrcode->appointments()->where('date_id',$date)->where('appointment_id',$appointment)->first();
      $appointment->pivot->status=$request->input('status');
       $appointment->pivot->save();
+     }
        return response()->json(['message'=>'status update successfully']);
     }
 
