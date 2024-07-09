@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\QRcode;
 use App\Models\Date;
+use App\Http\Requests\ValidateStatusRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -39,17 +40,20 @@ class AppointmentController extends Controller
     
         
     public function changestatus( Request $request, Qrcode $qrcode, $date, $appointment )
-    { 
-         $request->validate([
+    {
+        //  $validated = $request->validated();
+        $request->validate([
         'status'=>'required|string|in:free,inactive'
     ]);
      $user=Auth::user();
-     if($qrcode->user_id==$user->id){
+     $qrcode->user_id==$user->id;
     $appointment=$qrcode->appointments()->where('date_id',$date)->where('appointment_id',$appointment)->first();
      $appointment->pivot->status=$request->input('status');
       $appointment->pivot->save();
-     }
+     
        return response()->json(['message'=>'status update successfully']);
+     
+     
     }
 
     /**
