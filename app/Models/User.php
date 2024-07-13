@@ -47,10 +47,16 @@ class User extends Authenticatable
     }
    
 
-        public function qr_code()
+        public function qrcodes()
         {
-            return $this->belongsTO(Qrcode::class);
+            return $this->hasMany(Qrcode::class);
         }   
+
+ 
+        public function reservations()
+        {
+            return $this->hasMany(Reservation::class);
+        }
     
 
 

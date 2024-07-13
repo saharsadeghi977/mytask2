@@ -22,12 +22,12 @@ class AppointmentController extends Controller
         
        $freeAppointments=$appointments->filter(function($appointment){
         return $appointment->qrcodes->first()->pivot->status=='free';
-       })->pluck('time')->implode(',');
+       })->pluck('time');
 
        $busyAppointments=$appointments->filter(function($appointment){
         $status=$appointment->qrcodes->first()->pivot->status;
         return $status == 'reserved'||$status == 'inactive';
-       })->pluck('time')->implode(',');
+       })->pluck('time');
        
           return response()->json([
             'data'=>[

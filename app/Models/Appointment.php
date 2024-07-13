@@ -15,7 +15,7 @@ class Appointment extends Model
    
     public function qrCodes()
     {
-        return $this->belongsToMany(QrCode::class,'reservation_qrcode')->withPivot(['status']);
+        return $this->belongsToMany(QrCode::class,'reservations')->withPivot(['status']);
     }
 
     public function date()

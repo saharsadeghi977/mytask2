@@ -11,12 +11,12 @@ class Qrcode extends Model
 
     protected $fillable=['code','user_id','description'];
 
-    public function appointments(){
-        return $this->belongsToMany(Appointment::class,'reservation_qrcode')->withPivot(['status']);
-    }
-
     public function  users(){
 
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function appointments(){
+        return $this->belongsToMany(Appointment::class,'reservations')->withPivot(['status']);
     }
 }

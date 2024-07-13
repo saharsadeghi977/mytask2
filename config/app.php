@@ -14,6 +14,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    
+    "core_url" => env("CORE_ADDRESS", "http://127.0.0.1:8001"),
+        "core_admin_user" => env("CORE_SUPER_ADMIN_USER"),
+        "core_admin_password" => env("CORE_SUPER_ADMIN_PASSWORD"),
 
     /*
     |--------------------------------------------------------------------------
