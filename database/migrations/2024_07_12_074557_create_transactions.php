@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete();
-            $table->string('status')->default('pending');
+            $table->string('transaction_id');
+            $table->string('status');
             $table->decimal('amount',10,2);
             $table->timestamps();
         });

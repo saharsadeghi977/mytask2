@@ -21,6 +21,10 @@ class Reservation extends Model
     {
         return $this->belongsTo(Appointment::class);
     }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 
 
 

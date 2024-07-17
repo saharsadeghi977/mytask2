@@ -12,7 +12,12 @@ class Transaction extends Model
         'amount',
          'status',
          'reservation_id',
+         'transaction_id'
          
     ];
+    public function reservation()
+    {
+        return $this->belongsTo(Reservation::class);
+    }
  
 }

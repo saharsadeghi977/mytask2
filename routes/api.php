@@ -12,4 +12,5 @@ Route::get('/user', function (Request $request) {
 Route::get('/qrcodes/{qrcode}/dates/{date}/appointments',[AppointmentController::class,'index']);
 Route::put('/qrcodes/{qrcode}/dates/{date}/appointments/{appointment}/changestatus',[AppointmentController::class,'changestatus']);
 
-Route::put('/qrcodes/{qrcode}/dates/{date}/appointments/{appointment}',[PaymentController::class,'processPayment']);
+Route::get('/qrcodes/{qrcode}/dates/{date}/appointments/{appointment}',[PaymentController::class,'processPayment']);
+Route::put('/callback',[PaymentController::class,'callback']);
