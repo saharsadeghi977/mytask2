@@ -72,6 +72,7 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         //
+        // Auth::insert_data
     }
 
     /**

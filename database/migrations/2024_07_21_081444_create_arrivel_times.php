@@ -11,22 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('qrcodes', function (Blueprint $table) {
+        Schema::create('arrivel_times', function (Blueprint $table) {
             $table->id();
-            $table->string('code',100);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->text('description')->nullable();
+            $table->foreignId('qrcode_id')->constrained()->cascadeOnDelete();
+            $table->time('arrivel_at');
             $table->timestamps();
         });
     }
 
     /**
-     * 
      * Reverse the migrations.
-     *
      */
     public function down(): void
     {
-        Schema::dropIfExists('qr_codes');
+        Schema::dropIfExists('arrivel_time');
     }
 };

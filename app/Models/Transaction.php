@@ -15,9 +15,8 @@ class Transaction extends Model
          'transaction_id'
          
     ];
-    public function reservation()
-    {
-        return $this->belongsTo(Reservation::class);
-    }
+ public function transactionable(){
+    return $this->morphTo();
+ }
  
 }

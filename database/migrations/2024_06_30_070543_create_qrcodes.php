@@ -11,21 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('qrcodes', function (Blueprint $table) {
             $table->id();
-            $table->morphs('transactionable'); 
-            $table->string('status');
-            $table->integer('transaction_id');
-            $table->decimal('amount',10,2);
+            $table->string('code',100);
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
 
     /**
+     *   
      * Reverse the migrations.
+     *
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('qr_codes');
     }
 };

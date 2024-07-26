@@ -1,5 +1,6 @@
 <?php
-
+use App\Http\Classes\RpAuth;
+use Illuminate\Auth\AuthManager;
 return [
 
     /*
@@ -12,12 +13,14 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
-
     'name' => env('APP_NAME', 'Laravel'),
-    
+    "version" => "Beta",
     "core_url" => env("CORE_ADDRESS", "http://127.0.0.1:8001"),
-        "core_admin_user" => env("CORE_SUPER_ADMIN_USER"),
-        "core_admin_password" => env("CORE_SUPER_ADMIN_PASSWORD"),
+    "core_secret" => env("CLIENT_SECRET"),
+    "core_admin_user" => env("CORE_SUPER_ADMIN_USER"),
+    "core_admin_password" => env("CORE_SUPER_ADMIN_PASSWORD"),
+    "core_user" => env("CORE_USER"),
+    "core_pass" => env("CORE_PASS"),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,6 +60,8 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +74,7 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    'timezone' => 'Asia/Tehran',
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +87,7 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'en'),
+    'locale' => 'fa',
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
