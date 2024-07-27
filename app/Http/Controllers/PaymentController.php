@@ -13,7 +13,7 @@ class PaymentController extends Controller
       
     public function processPayment(Request $request, Qrcode $qrcode, $date, $appointment)
     {
-        Auth::user()->id;
+        // Auth::user()->id;
     
         $appointment = $qrcode->appointments()->where('date_id', $date)->where('appointment_id', $appointment)->first();
         if ($appointment->pivot->status == 'free') {
@@ -24,11 +24,11 @@ class PaymentController extends Controller
             $payment = Payment::callbackUrl('/callback')->purchase(
                 (new Invoice)->amount(1000),
                 function ($driver, $transactionId) use ($reservation) {
-                    $transaction = Transaction::create([
+                    
+                    $reservation->transactions()->create([
                         'status' => 'pending',
-                        'transaction_type'=>'nobatdehi',
-                        'refrence_id' => $reservation->id,
-                         'transaction_id'=> $transactionId
+                         'transaction_id'=> $transactionId,
+                         'amount'=>1000,
                     ]);
                 }
             )->pay();
@@ -42,13 +42,13 @@ class PaymentController extends Controller
     public function callback(Request $request )
 
     {
-      
         try {
             $userid=1;
             $receipt = Payment::amount(1000)->transactionId($request->input('transactionId'))->verify();
             $transaction = Transaction::where('transaction_id', $request->input('transactionId'))->first();
+
             $transaction->update(['status' => 'success']);
-            $reservation=$transaction->reservation;
+            $reservation=$transaction->transactionable; 
             $reservation->update(['user_id' =>$userid]);
         } catch (\Exception $e) {
                 $transaction->update(['status' => 'failed']);
